@@ -73,7 +73,10 @@ CFLAGS += $(INC_DIRS_OPTION) $(DEFINES_OPTION)
 CFLAGS += -fPIC -fvisibility=hidden
 
 ifneq "$(ALLOW_WARNINGS)" "1"
-	CFLAGS += -Werror
+	CFLAGS += -Werror -Wno-unused-variable
+ifeq ("$(OSTYPE)","Darwin")
+	CFLAGS += -Wno-deprecated-declarations -Wno-unused-private-field -Wno-unused-const-variable -Wno-shift-negative-value
+endif
 endif
 
 LDFLAGS += $(LIB_DIRS_OPTION) $(USED_LIBS_OPTION)

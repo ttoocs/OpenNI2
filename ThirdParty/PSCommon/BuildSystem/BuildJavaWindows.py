@@ -1,3 +1,23 @@
+#/****************************************************************************
+#*                                                                           *
+#*  PrimeSense PSCommon Library                                              *
+#*  Copyright (C) 2012 PrimeSense Ltd.                                       *
+#*                                                                           *
+#*  This file is part of PSCommon.                                           *
+#*                                                                           *
+#*  Licensed under the Apache License, Version 2.0 (the "License");          *
+#*  you may not use this file except in compliance with the License.         *
+#*  You may obtain a copy of the License at                                  *
+#*                                                                           *
+#*      http://www.apache.org/licenses/LICENSE-2.0                           *
+#*                                                                           *
+#*  Unless required by applicable law or agreed to in writing, software      *
+#*  distributed under the License is distributed on an "AS IS" BASIS,        *
+#*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+#*  See the License for the specific language governing permissions and      *
+#*  limitations under the License.                                           *
+#*                                                                           *
+#****************************************************************************/
 import os
 import subprocess
 import sys
@@ -5,7 +25,7 @@ import shutil
 
 # parse command line
 if len(sys.argv) < 5:
-    print "usage: " + sys.argv[0] + " <x86|x64> <BinDir> <SourceDir> <Name> [NeededJarFiles] [MainClass]"
+    print("usage: " + sys.argv[0] + " <x86|x64> <BinDir> <SourceDir> <Name> [NeededJarFiles] [MainClass]")
     exit(1)
 
 platform_string = ""
@@ -14,7 +34,7 @@ if sys.argv[1] == "" or sys.argv[1] == "x86":
 elif sys.argv[1] == "x64":
     platform_string = "x64"
 else:
-    print 'First argument must be "x86", "x64" or empty (x86)'
+    print('First argument must be "x86", "x64" or empty (x86)')
     exit(1)
     
 bin_dir = os.path.abspath(sys.argv[2])
@@ -37,7 +57,7 @@ BATCH_FILE = os.path.join(RELEASE_DIR, proj_name + '.bat')
 # make sure JAVA_HOME is set
 JAVA_HOME = os.path.expandvars("$JAVA_HOME")
 if JAVA_HOME == "":
-    print "JAVA_HOME is not set!"
+    print("JAVA_HOME is not set!")
     exit(1)
     
 CLASS_PATH = os.path.expandvars("$CLASSPATH")
@@ -106,9 +126,9 @@ shutil.copy(JAR_FILE, DEBUG_DIR)
     
 # create batch file (by default, windows does not open a console when double-clicking jar files)
 if main_class != "":
-    print "Creating batch file..."
+    print("Creating batch file...")
     batch = open(BATCH_FILE, 'w')
-    batch.write('java -Xmx768m -jar ' + proj_name + '.jar\n')
+    batch.write('java -Xmx768m -jar ' + proj_name + '.jar %*\n')
     batch.close()
 
     # copy batch to Bin/Debug

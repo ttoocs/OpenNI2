@@ -3,7 +3,7 @@
 # Modded by ttoocs, as I needed this.
 
 pkgname=openni2-git
-pkgver=2.2.beta.r25.g1fce8ed
+pkgver=2.2.beta.r235.g851cf9d
 pkgrel=1
 pkgdesc="Framework for sensor-based 'Natural Interaction' (Git version)"
 arch=('i686' 'x86_64')
@@ -13,7 +13,7 @@ depends=('freeglut' 'glu' 'libusb' 'java-environment' 'libjpeg-turbo')
 makedepends=('git' 'python' 'doxygen' 'graphviz')
 provides=('openni2')
 conflicts=('openni2' 'openni2-libfreenect')
-source=('openni2-git'::'git+https://github.com/ttoocs/OpenNI2.git#branch=mydev'
+source=('openni2-git'::'git+https://github.com/ttoocs/OpenNI2.git#branch=devmerge'
         '0002-Change-path-of-config-files-to-etc-openni2.patch'
         '0003-Use-system-wide-libjpeg.patch'
         '0005-change-default-ni-drivers-path.patch'
@@ -41,7 +41,7 @@ prepare() {
     
     # apply patches
     patch -Np1 -i "${srcdir}/0002-Change-path-of-config-files-to-etc-openni2.patch"
-    patch -Np1 -i "${srcdir}/0003-Use-system-wide-libjpeg.patch"
+#    patch -Np1 -i "${srcdir}/0003-Use-system-wide-libjpeg.patch"
     patch -Np1 -i "${srcdir}/0005-change-default-ni-drivers-path.patch"
 #    patch -Np1 -i "${srcdir}/0013-Fix-GCC6-compilation.patch"
 }
@@ -106,8 +106,8 @@ package() {
     install -D -m644 OpenNI2/Drivers/* "${pkgdir}/etc/openni2/Drivers"
     
     # documentation
-    cd "${srcdir}/${pkgname}/Source/Documentation/html"
-    install -D -m644 * "${pkgdir}/usr/share/doc/${pkgname}"
+    #cd "${srcdir}/${pkgname}/Source/Documentation/html"
+    #install -D -m644 * "${pkgdir}/usr/share/doc/${pkgname}"
     
     # pkg-config file
     cd "$srcdir"
